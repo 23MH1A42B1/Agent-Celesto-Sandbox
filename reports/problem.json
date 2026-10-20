@@ -1,0 +1,6 @@
+{
+  "who": "DevSecOps engineers and autonomous CI/CD security review teams vetting untrusted third-party dependencies before integration.",
+  "agent_work": "The agent provisions an isolated Celesto microVM, executes automated static and dynamic package detonation probes under strict egress policy, intercepts malicious payloads via safety callbacks, and validates rollback capabilities upon runtime corruption.",
+  "proof_output": "A verified behavioral risk report and tamper-evident audit trace certifying containment and host isolation.",
+  "idea_source": "idea_bank"
+}

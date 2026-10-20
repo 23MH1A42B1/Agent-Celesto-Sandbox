@@ -1,0 +1,6 @@
+[2026-10-20T10:14:00.000000Z] [NETWORK_POLICY_INIT] Initializing Celesto sandbox sbx-detonate01 with backend=firecracker, network_mode=allowlist.
+[2026-10-20T10:14:00.120000Z] [RULE_ENFORCED] Allowed egress destinations: ['pypi.org', 'files.pythonhosted.org']. Default action: DROP.
+[2026-10-20T10:14:01.350000Z] [EGRESS_ATTEMPT] Target: https://pypi.org/pypi/requests/json -> ALLOWED (Matches allowlist policy).
+[2026-10-20T10:14:02.890000Z] [EGRESS_ATTEMPT] Target: http://evil.attacker.com/exfil -> BLOCKED.
+[2026-10-20T10:14:02.891000Z] [POLICY_VIOLATION] Guest iptables/vsock packet drop triggered. Destination 198.51.100.24 is not permitted. Exit code: 7 (Network unreachable).
+[2026-10-20T10:14:03.000000Z] [CONTAINMENT_VERIFIED] Canary environment secret $CANARY_SECRET retained within guest boundary. Zero bytes transmitted to external network.

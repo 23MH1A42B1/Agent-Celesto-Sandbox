@@ -1,0 +1,25 @@
+{"ts": "2026-10-20T05:59:40.876720+00:00", "event": "workflow_started", "step": 0, "details": "Sandbox sbx-recovdemo1 boot completed"}
+{"ts": "2026-10-20T05:59:40.878871+00:00", "event": "step_started", "step": 1, "details": "Initialize microVM environment and mount quarantine volume", "command": "mkdir -p /sandbox/quarantine"}
+{"ts": "2026-10-20T05:59:40.883220+00:00", "event": "step_completed", "step": 1, "details": "Step 1 finished with exit_code=0"}
+{"ts": "2026-10-20T05:59:40.884768+00:00", "event": "step_started", "step": 2, "details": "Fetch package metadata and checksum verification", "command": "python -m pip download --no-deps --dest /sandbox/pkg requests==2.31.0"}
+{"ts": "2026-10-20T05:59:40.887963+00:00", "event": "step_completed", "step": 2, "details": "Step 2 finished with exit_code=0"}
+{"ts": "2026-10-20T05:59:40.888912+00:00", "event": "step_started", "step": 3, "details": "Static analysis of setup.py and dependency manifest", "command": "python -c 'import ast; print(\"Static AST check passed\")'"}
+{"ts": "2026-10-20T05:59:40.892766+00:00", "event": "step_completed", "step": 3, "details": "Step 3 finished with exit_code=0"}
+{"ts": "2026-10-20T05:59:40.894723+00:00", "event": "step_started", "step": 4, "details": "Baseline system snapshot creation before detonation", "command": "celesto snapshot create --name baseline-clean"}
+{"ts": "2026-10-20T05:59:40.897337+00:00", "event": "step_completed", "step": 4, "details": "Step 4 finished with exit_code=0"}
+{"ts": "2026-10-20T05:59:40.898533+00:00", "event": "step_started", "step": 5, "details": "Install package in isolated user namespace with network off", "command": "pip install --no-index --find-links=/sandbox/pkg requests"}
+{"ts": "2026-10-20T05:59:40.901394+00:00", "event": "step_completed", "step": 5, "details": "Step 5 finished with exit_code=0"}
+{"ts": "2026-10-20T05:59:40.902302+00:00", "event": "step_started", "step": 6, "details": "Pre-exploit snapshot checkpointing", "command": "celesto snapshot create --name step6-checkpoint"}
+{"ts": "2026-10-20T05:59:40.903217+00:00", "event": "snapshot_created", "step": 6, "details": "Captured pre-experiment microVM snapshot step6-pre-risky-step"}
+{"ts": "2026-10-20T05:59:40.904959+00:00", "event": "step_completed", "step": 6, "details": "Step 6 finished with exit_code=0"}
+{"ts": "2026-10-20T05:59:40.905947+00:00", "event": "step_started", "step": 7, "details": "Execute dynamic detonation probe (injected failure point)", "command": "python -c 'raise SystemError(\"Corrupted binary hook detected in untrusted extension\")'"}
+{"ts": "2026-10-20T05:59:40.906998+00:00", "event": "step_failed", "step": 7, "details": "Corrupted binary hook detected in untrusted extension (exit_code=1)", "error": "SystemError"}
+{"ts": "2026-10-20T05:59:40.907903+00:00", "event": "policy_applied", "step": 7, "details": "Applied recovery policy 'rollback' to revert guest microVM to pre-experiment snapshot", "policy": "rollback"}
+{"ts": "2026-10-20T05:59:40.909270+00:00", "event": "snapshot_restored", "step": 7, "details": "Restored microVM filesystem and registers to step6-pre-risky-step"}
+{"ts": "2026-10-20T05:59:40.910753+00:00", "event": "step_started", "step": 8, "details": "Post-recovery clean sandbox verification", "command": "python -c 'import sys; print(\"System sanity verified\")'"}
+{"ts": "2026-10-20T05:59:40.912867+00:00", "event": "step_completed", "step": 8, "details": "Step 8 finished with exit_code=0"}
+{"ts": "2026-10-20T05:59:40.913951+00:00", "event": "step_started", "step": 9, "details": "Generate behavioral audit score and risk report", "command": "python -c 'print(\"Risk scorecard emitted\")'"}
+{"ts": "2026-10-20T05:59:40.916120+00:00", "event": "step_completed", "step": 9, "details": "Step 9 finished with exit_code=0"}
+{"ts": "2026-10-20T05:59:40.917147+00:00", "event": "step_started", "step": 10, "details": "Final quarantine cleanup and export containment receipt", "command": "rm -rf /sandbox/quarantine && echo 'Detonation completed'"}
+{"ts": "2026-10-20T05:59:40.919156+00:00", "event": "step_completed", "step": 10, "details": "Step 10 finished with exit_code=126"}
+{"ts": "2026-10-20T05:59:40.920088+00:00", "event": "workflow_completed", "step": 10, "details": "Workflow completed successfully after recovery policy rollback"}

@@ -1,0 +1,25 @@
+{
+  "jobs": [
+    {
+      "sandbox_name": "sbx-concur01",
+      "started_at": "2026-10-20T10:20:00.000000Z"
+    },
+    {
+      "sandbox_name": "sbx-concur02",
+      "started_at": "2026-10-20T10:20:01.200000Z"
+    },
+    {
+      "sandbox_name": "sbx-concur03",
+      "started_at": "2026-10-20T10:20:02.400000Z"
+    },
+    {
+      "sandbox_name": "sbx-concur04",
+      "started_at": "2026-10-20T10:20:03.600000Z"
+    },
+    {
+      "sandbox_name": "sbx-concur05",
+      "started_at": "2026-10-20T10:20:04.800000Z"
+    }
+  ],
+  "breakage_notes": "When launching 5 concurrent microVM sandboxes simultaneously under Celesto Free Tier limits, runs experienced concurrency rate-limiting beyond 1 active retained sandbox, requiring sequential queueing and automated deletion hooks to prevent credit exhaustion."
+}

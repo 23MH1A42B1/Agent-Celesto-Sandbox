@@ -1,0 +1,19 @@
+{
+  "capabilities": [
+    {
+      "id": "safety_hooks",
+      "why": "Pre-execution safety callbacks inspect command AST and token payloads before dispatch to the guest microVM kernel, enabling deterministic blocking of prompt injection exfiltration vectors and destructive system calls while producing an unalterable audit trail.",
+      "evidence_path": "reports/evidence/containment.log"
+    },
+    {
+      "id": "snapshots",
+      "why": "Celesto microVM snapshots capture full CPU, memory, and filesystem states in under 100 milliseconds, allowing the agent to checkpoint clean baselines prior to high-risk execution and instantly roll back when step 7 of 10 encounters an injected failure without costly VM reprovisioning.",
+      "evidence_path": "reports/failure_trace.jsonl"
+    },
+    {
+      "id": "network_policy",
+      "why": "MicroVM-level egress network policy isolates the guest by disabling unauthorized outbound internet connectivity or restricting it to strict allowlists, neutralizing prompt-injection exfiltration attacks attempting to leak injected canary credentials to external command-and-control servers.",
+      "evidence_path": "reports/evidence/network_policy.log"
+    }
+  ]
+}

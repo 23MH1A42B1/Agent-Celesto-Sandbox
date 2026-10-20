@@ -1,0 +1,7 @@
+{
+  "failed_step": 7,
+  "total_steps": 10,
+  "policy": "rollback",
+  "rationale": "During step 7 of 10, the agent executes dynamic package detonation which encounters corrupted binary hooks. Rather than discarding the entire sandbox (expensive full re-boot) or resuming on a corrupted guest disk (unstable state), the agent applies the rollback policy. By restoring the microVM checkpoint captured immediately prior to step 7 at step 6, the sandbox reverts to a verified clean baseline in under 100 milliseconds, allowing subsequent analysis steps 8 to 10 to conclude deterministically.",
+  "trace_path": "reports/failure_trace.jsonl"
+}
