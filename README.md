@@ -176,24 +176,3 @@ curl -f http://localhost:8080/api/runs
 ```bash
 pytest -v tests/test_reports.py
 ```
-
----
-
-## Technical Deep-Dive: Founder Q&A
-
-### Why Celesto and not Docker or E2B?
-1. **MicroVM Hardware Isolation vs Docker:** Docker containers share the host Linux kernel. Any kernel exploit (e.g., Dirty COW, CVE-2024-21626) allows container breakout. Celesto uses Firecracker / QEMU microVMs where each guest runs its own independent kernel with hardware-assisted KVM virtualization.
-2. **Speed & Snapshots vs E2B / Traditional VMs:** Celesto boots in under 500ms (compared to tens of seconds for VirtualBox/EC2) and supports full memory and disk snapshots for instant rollback, combined with unified local and cloud APIs.
-
-### What breaks at 1,000 concurrent users?
-1. **Free-tier microVM limits:** As documented in [`reports/concurrency.json`](file:///reports/concurrency.json), concurrent sandboxes require managed queueing and pooled pre-warmed instances to avoid cloud rate limits.
-2. **Database write pressure:** High-frequency command audit logging needs asynchronous batching (Kafka/Redis buffer) before writing to the PostgreSQL ledger.
-
-### Product Feedback for Celesto:
-- **Snapshot portability:** Snapshots taken on the local KVM runtime cannot currently be seamlessly migrated to Celesto Cloud without re-uploading full base images. A differential cloud-sync primitive would make hybrid workflows significantly faster.
-
----
-
-## Demo Walkthrough
-
-A complete screen recording of the agent executing live inside the Celesto microVM, blocking attacks, and rolling back failures is available at [`demo/walkthrough.mp4`](file:///demo/walkthrough.mp4).
